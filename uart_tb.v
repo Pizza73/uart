@@ -27,13 +27,13 @@ module uart_tb(
     reg     pulse;
     wire    done;
     wire    signal;
-    reg     start;
+    reg     enable;
     reg     pulse_in;
     wire    pulse_out;
     // wire    test;
     // wire [2:0] counter;
-    wire [8:0] counter;
-    wire [7:0]  char_in;
+    // wire [8:0] counter;
+    // wire [7:0]  char_in;
     
     initial begin
         clk = 1'b0;
@@ -41,7 +41,7 @@ module uart_tb(
         pulse = 1'b0;
         // done = 1'b0;
         // signal = 1'b1;
-        start = 1'b0;
+        enable = 1'b1;
         pulse_in = 1'b0;
         // pulse_out = 1'b0;
     end
@@ -53,26 +53,32 @@ module uart_tb(
         pulse = 1'b0;
         // done = 1'b0;
         // signal = 1'b1;
-        start = 1'b0;
+        // enable = 1'b0;
         pulse_in = 1'b0;
         // pulse_out = 1'b0;
     end
 
+    // always #50
+    // begin
+    //     // enable = 1'b1;
+    // end
+
     always
     begin
-        pulse = 1'b0;
-        rst = 1'b0;
-        // done = 1'b0;
-        // signal = 1'b1;
-        start = 1'b0;
-        pulse_in = 1'b0;
-        // pulse_out = 1'b0;
+        // pulse = 1'b0;
+        // rst = 1'b0;
+        // // done = 1'b0;
+        // // signal = 1'b1;
+        // enable = 1'b1;
+        // pulse_in = 1'b0;
+        // // pulse_out = 1'b0;
         #10
-        $display("start simulation\n");
+        $display("enable simulation\n");
         $display("initial data\n");
         $display("\"clk\" is %d\n", clk);
         $display("\"rst\" is %d\n", rst);
         $display("\"data\" is %02d\n", signal);
+        // enable = 1'b1;
         
         #1
         rst = 1'b0;
@@ -81,15 +87,6 @@ module uart_tb(
         $display("\"clk\" is %d\n", clk);
         $display("\"rst\" is %d\n", rst);
         $display("\"data\" is %02d\n", signal);
-        
-//        #10
-//        enable = 1'b1;
-
-//        #530
-//        enable = 1'b0;
-
-//        #20
-//        enable = 1'b1;
 
         #10000000
         $finish;
@@ -103,11 +100,9 @@ module uart_tb(
         .rst(rst), 
         .pulse(pulse_out),
         .character(8'b01100100),
-        .start(start),
+        .enable(enable),
         .signal(signal),
-        .done(done),
-        .counter(counter),
-        .char_in(char_in)
+        .done(done)
     );
     // test test1(.clk(clk), .rst(rst), .counter(counter));
     

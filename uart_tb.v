@@ -30,8 +30,10 @@ module uart_tb(
     reg     start;
     reg     pulse_in;
     wire    pulse_out;
-    wire    test;
-    wire [9:0] counter;
+    // wire    test;
+    // wire [2:0] counter;
+    wire [8:0] counter;
+    wire [7:0]  char_in;
     
     initial begin
         clk = 1'b0;
@@ -95,16 +97,19 @@ module uart_tb(
 
     
     
-    gen_pulse   gen_pulse1(.clk(clk), .rst(rst), .pulse(pulse_out), .test(test), .counter(counter));  
-    // uart_send uart_send(
-    //     .clk(clk), 
-    //     .rst(rst), 
-    //     .pulse(pulse_in),
-    //     .character(8'b01100100),
-    //     .start(start),
-    //     .signal(signal),
-    //     .done(done)
-    // );
+    gen_pulse   gen_pulse1(.clk(clk), .rst(rst), .pulse(pulse_out));  
+    uart_send uart_send(
+        .clk(clk), 
+        .rst(rst), 
+        .pulse(pulse_out),
+        .character(8'b01100100),
+        .start(start),
+        .signal(signal),
+        .done(done),
+        .counter(counter),
+        .char_in(char_in)
+    );
+    // test test1(.clk(clk), .rst(rst), .counter(counter));
     
 
 endmodule
